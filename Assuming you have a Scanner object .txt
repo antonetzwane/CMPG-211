@@ -1,0 +1,147 @@
+//Assuming you have a Scanner object called input
+int row1, col1, row2, col2; //Variables to store the user input
+boolean valid = false; //Flag to indicate if the input is valid
+
+//Loop until valid input is entered
+do {
+  //Prompt the user for the first card coordinates
+  System.out.println("Enter the row and column of the first card (separated by a space):");
+  row1 = input.nextInt();
+  col1 = input.nextInt();
+
+  //Check if the input is within bounds and not already guessed
+  if (row1 >= 0 && row1 < cards.length && col1 >= 0 && col1 < cards[0].length && !guessed[row1][col1]) {
+    //Set the flag to true
+    valid = true;
+  } else {
+    //Display an error message
+    System.out.println("Invalid input. Please try again.");
+  }
+} while (!valid);
+
+//Reset the flag for the second card input
+valid = false;
+
+//Loop until valid input is entered
+do {
+  //Prompt the user for the second card coordinates
+  System.out.println("Enter the row and column of the second card (separated by a space):");
+  row2 = input.nextInt();
+  col2 = input.nextInt();
+
+  //Check if the input is within bounds and not already guessed
+  if (row2 >= 0 && row2 < cards.length && col2 >= 0 && col2 < cards[0].length && !guessed[row2][col2]) {
+    //Set the flag to true
+    valid = true;
+  } else {
+    //Display an error message
+    System.out.println("Invalid input. Please try again.");
+  }
+} while (!valid);
+
+//Use the mutator methods to alter the guessed Boolean values for the guessed cards
+//Assuming the mutator methods are called setGuessed and take two parameters: row and column
+setGuessed(row1, col1, true);
+setGuessed(row2, col2, true);
+
+//Use showAll to display the array list now displaying the guessed cards
+showAll();
+
+//If the guesses are unsuccessful set the guessed property back to its original value
+//Assuming there is a method called match that takes two parameters: row and column of two cards and returns true if they match
+if (!match(row1, col1, row2, col2)) {
+  //Set the guessed values back to false
+  setGuessed(row1, col1, false);
+  setGuessed(row2, col2, false);
+} else {
+  //If successful display a message to the user and check if they are a winner
+  System.out.println("You found a match!");
+  checkWin();
+}
+
+
+
+
+
+
+
+
+
+MyArrayList<Cards> list1 = createRandomList();
+        MyArrayList<Cards> list2 = createRandomList();
+        MyArrayList<Cards> list3 = createRandomList();
+        MyArrayList<Cards> list4 = createRandomList();
+
+
+        System.out.println("Initial Game Boards:");
+        printGameBoard(list1);
+        printGameBoard(list2);
+        printGameBoard(list3);
+        printGameBoard(list4);
+
+        System.out.println("isAllGuessed for list1: " + list1.isAllGuessed());
+        System.out.println("isFull for list2: " + list2.isFull());  
+        
+        playMemoryGame(list1);
+
+Scanner scanner = new Scanner(System.in);
+        boolean gameOver = false;
+
+        while (!gameOver) 
+        {
+            System.out.print("Enter row and column for the first card (e.g., 1 2): ");
+            int row1 = scanner.nextInt() - 1; 
+            int col1 = scanner.nextInt() - 1;
+
+            if (!isValidInput(row1, col1, cardList)) 
+            {
+                System.out.println("Invalid input. Try again.");
+                continue;
+            }
+
+            if (cardList.get(row1 * 4 + col1).isGuess()) 
+            {
+                System.out.println("Card already guessed. Try again.");
+                continue;
+            }
+
+            cardList.get(row1 * 4 + col1).setGuess(true);
+            showAll(cardList);
+
+            System.out.print("Enter row and column for the second card (e.g., 2 3): ");
+            int row2 = scanner.nextInt() - 1;
+            int col2 = scanner.nextInt() - 1;
+
+            if (!isValidInput(row2, col2, cardList)) 
+            {
+                System.out.println("Invalid input. Try again.");
+                continue;
+            }
+
+            if (cardList.get(row2 * 4 + col2).isGuess()) 
+            {
+                System.out.println("Card already guessed. Try again.");
+                continue;
+            }
+
+            cardList.get(row2 * 4 + col2).setGuess(true);
+            showAll(cardList);
+
+            if (cardList.get(row1 * 4 + col1).getValue() == cardList.get(row2 * 4 + col2).getValue()) 
+            {ca
+                System.out.println("Match! You found a pair.");
+                if (cardList.checkWin()) 
+                {
+                    System.out.println("Congratulations! You won!");
+                    gameOver = true;
+                }
+            } 
+            else 
+            {
+                System.out.println("Not a match. Try again.");
+                cardList.get(row1 * 4 + col1).setGuess(false);
+                cardList.get(row2 * 4 + col2).setGuess(false);
+            }
+        }
+
+        scanner.close();

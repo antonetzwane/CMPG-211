@@ -1,0 +1,6 @@
+James Smit,2022/02/01,Barista,10,P
+Harry Peters,2023/01/01,Barista,5,A
+Susan Meyer,2022/08/12,Waiter,32000
+Mary Johnson,2021/01/01,Waiter,17800
+William Williamson,2020/03/01,Waiter,23750
+Frank Mokaba,2021/01/01,Barista,7,P
